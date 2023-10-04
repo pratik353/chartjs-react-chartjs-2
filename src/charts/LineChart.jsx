@@ -39,41 +39,46 @@ const LineChart = () => {
             });
         }
 
-        fetchCoins();
+        // fetchCoins();
     },[]);
     
     const data = {
-        labels: chart?.coins?.map( coin => coin.name),
-        datasets: [{
-          label: '# of Votes',
-          data: chart?.coins?.map( coin => coin.price),
+      labels: ['Jan', 'Feb', 'Mar', 'June', 'July'],
+      datasets: [{
+        label: '# of Votes',
+        data: [4, 2, 6, 3, 5],
           backgroundColor: [
-            'rgba(255, 99, 132, 0.2)',
-            'rgba(255, 159, 64, 0.2)',
-            'rgba(255, 205, 86, 0.2)',
-            'rgba(75, 192, 192, 0.2)',
-            'rgba(54, 162, 235, 0.2)',
-            'rgba(153, 102, 255, 0.2)',
-            'rgba(201, 203, 207, 0.2)'
+            '#49C354',
           ],
           borderColor: [
-            'rgb(255, 99, 132)',
-            'rgb(255, 159, 64)',
-            'rgb(255, 205, 86)',
-            'rgb(75, 192, 192)',
-            'rgb(54, 162, 235)',
-            'rgb(153, 102, 255)',
-            'rgb(201, 203, 207)'
+            '#49C354',
           ],
-          borderWidth: 1
+          borderWidth: 2,
+          pointRadius:0,
+          hoverPointRadius:0
         }]
       };
 
       const options = {
+        layout:{
+          padding: {
+            left:16
+          }
+        },
         maintainAspectRatio: false,
         scales: {
           y: {
-            beginAtZero: true
+            beginAtZero:true,
+            grid:{
+              drawTicks:false,
+              tickBorderDashOffset:0,
+              tickBorderDash:[0, 0, 0, 0, 0]
+            }
+          },
+          x: {
+            grid:{
+              drawTicks:false,
+            }
           }
         },
         legend: {

@@ -12,12 +12,24 @@ function App() {
   return (
     <div className="App">
      <BarChart/>
+     <br/>
+     <br/>
+     <br/>
      <VerticalBarChart/>
+     <br/>
+     <br/>
+     <br/>
      <DoughnutChart/>
+     <br/>
+     <br/>
+     <br/>
      <RoundedDoughnutChart/>
-     {/* <LineChart/>
-     <PieChart/>
-     <MultiTypeChart/> */}
+     <br/>
+     <br/>
+     <br/>
+     <LineChart/>
+     {/* <PieChart/> */}
+     {/* <MultiTypeChart/> */}
     </div>
   );
 }

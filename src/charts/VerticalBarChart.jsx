@@ -52,6 +52,7 @@ const VerticalBarChart = () => {
       };
 
       const options = {
+        events: [],
         maintainAspectRatio: false,
         scales: {
           x: {
@@ -98,7 +99,7 @@ const VerticalBarChart = () => {
                 meta.data.forEach(function(bar, index) {
                   const data = dataset.data[index];
           
-                  ctx.fillText(data, bar.x, bar.y - 5);
+                  ctx.fillText(data+'k', bar.x, bar.y - 5);
                 });
               });
             }

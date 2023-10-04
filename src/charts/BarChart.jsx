@@ -86,6 +86,7 @@ const BarChart = () => {
               // drawBorder: false,
               // display: false,
             },
+            
             display: false
           },
           y: {
@@ -95,6 +96,9 @@ const BarChart = () => {
             grid:{
                 drawBorder: false,
                 display: false,
+            },
+            border:{
+              display:false
             },
           },
         }
