@@ -5,15 +5,19 @@ import DoughnutChart from './charts/DoughnutChart';
 import LineChart from './charts/LineChart';
 import PieChart from './charts/PieChart';
 import MultiTypeChart from './charts/MultiTypeChart';
+import RoundedDoughnutChart from './charts/RoundedArcDoughnutChart';
+import VerticalBarChart from './charts/VerticalBarChart';
 
 function App() {
   return (
     <div className="App">
      <BarChart/>
+     <VerticalBarChart/>
      <DoughnutChart/>
-     <LineChart/>
+     <RoundedDoughnutChart/>
+     {/* <LineChart/>
      <PieChart/>
-     <MultiTypeChart/>
+     <MultiTypeChart/> */}
     </div>
   );
 }

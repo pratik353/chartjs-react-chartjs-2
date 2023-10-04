@@ -15,7 +15,7 @@ const base_URL = 'https://api.coinranking.com/v2/coins/?limit=10';
 const proxy_URL = 'https://cors-anywhere.herokuapp.com/';
 const API_KEY = 'coinranking585697757ca1bf5a5bcfdda4e933f1f16afc413ef060abc8';
 
-const DoughnutChart = () => {
+const RoundedDoughnutChart = () => {
 
     const [chart, setChart] = useState([]);
 
@@ -45,13 +45,13 @@ const DoughnutChart = () => {
         // datasets: [{
         //   label: '# of Votes',
         //   data: chart?.coins?.map( coin => coin.price),
-        labels: ['Jan', 'Feb'],
+        labels: ['Jan', 'Feb', 'Mar', 'Apr', 'June', 'July', 'Aug'],
         datasets: [{
           label: '# of Votes',
-          data: [4, 2],
+          data: [4, 2, 3, 4, 5, 6, 5],
           backgroundColor: [
-            '#49C354',
-            '#9F97F7',
+            'red',
+            'yellow',
             'blue',
             'green',
             'brown',
@@ -59,8 +59,8 @@ const DoughnutChart = () => {
             'gray'
           ],
           borderColor: [
-            '#49C354',
-            '#9F97F7',
+            'red',
+            'yellow',
             'blue',
             'green',
             'brown',
@@ -71,7 +71,7 @@ const DoughnutChart = () => {
           cutout: '85%', // set width of chart 
           // borderRadius: 10,
           // radius:150 // set radius of chart
-          spacing:5, // set gap between chart portions
+          // spacing:5, // set gap between chart portions
           rotation:40, // rotate chart
           // offset: 100s
           // circumference: 1
@@ -103,10 +103,39 @@ const DoughnutChart = () => {
       }
 
       const plugins= [{
+        afterUpdate: function (chart) {
+          if (chart.config.options.elements.arc.roundedCornersFor !== undefined) {
+            const arcs = chart.getDatasetMeta(0).data;
+            console.log(chart);
+            arcs.forEach(function(arc) {
+              arc.round = {
+                x: (chart.chartArea.left + chart.chartArea.right) / 2,
+                y: (chart.chartArea.top + chart.chartArea.bottom) / 2,
+                radius: (arc.outerRadius + arc.innerRadius) / 2,
+                thickness: (arc.outerRadius - arc.innerRadius) / 2,
+                backgroundColor: arc.options.backgroundColor
+              }
+            });
+          }
+        },
+        
 		afterDraw: function (chart) {
       if (chart.config.options.elements.arc.roundedCornersFor !== undefined) {
         const { ctx, canvas } = chart;
 
+        chart.getDatasetMeta(0).data.forEach(arc => {
+          const startAngle = Math.PI / 2 - arc.startAngle;
+          const endAngle = Math.PI / 2 - arc.endAngle;
+
+          ctx.save();
+          ctx.translate(arc.round.x, arc.round.y);
+          ctx.fillStyle = arc.options.backgroundColor;
+          ctx.beginPath();
+          ctx.arc(arc.round.radius * Math.sin(endAngle), arc.round.radius * Math.cos(endAngle), arc.round.thickness, 0, 2 * Math.PI);
+          ctx.closePath();
+          ctx.fill();
+          ctx.restore();
+        });
             const width = chart.width;
             const height = chart.height;
             const chartHeight = chart.chartArea.height;
@@ -119,8 +148,8 @@ const DoughnutChart = () => {
             ctx.textBaseline = "middle";
             ctx.fillStyle = chart.config.options.centerTextColor || "black";
       
-            const text1 = "70%";
-            const text2 = "Approved";
+            const text1 = "40%";
+            const text2 = "Hardware failure";
             const textX = Math.round((width - ctx.measureText(text1).width) / 2);
             const textX2 = Math.round((width - ctx.measureText(text2).width) / 2);
             const textY = (height - (chartHeight / 2));
@@ -144,4 +173,4 @@ const DoughnutChart = () => {
   )
 }
 
-export default DoughnutChart
+export default RoundedDoughnutChart
