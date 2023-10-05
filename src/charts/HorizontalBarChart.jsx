@@ -40,7 +40,7 @@ const BarChart = () => {
     const data = {
         labels: ['Jan', 'Feb', 'Mar'],
         datasets: [{
-          label: '# of Votes',
+          label: ['server-1'],
           data: [4, 3, 2],
           backgroundColor: [
             '#1363AC',
@@ -50,8 +50,8 @@ const BarChart = () => {
           borderWidth: 1
         },
         {
-          label: '# of Votes',
-          data: [1, 5, 3, 4],
+          label: ['server-1'],
+          data: [1, 5, 3],
           backgroundColor: [
             '#49C354',
             '#9F97F7',
@@ -60,7 +60,7 @@ const BarChart = () => {
           borderWidth: 1
         },
         {
-          label: '# of Votes',
+          label: ['server-1'],
           data: [3, 2, 1],
           backgroundColor: [
             '#9F97F7',
@@ -73,6 +73,12 @@ const BarChart = () => {
       };
 
       const options = {
+        layout:{
+          padding: {
+            right:24
+          }
+        },
+        events: [], // removes all events fromm chart 
         indexAxis: "y",
         maintainAspectRatio: false,
         legend: {
@@ -101,16 +107,44 @@ const BarChart = () => {
               display:false
             },
           },
+        },
+        animation: {
+          duration: 1,
+          onComplete: function({ chart }) {
+            const ctx = chart.ctx;
+        
+            chart.config.data.datasets.forEach(function(dataset, i) {
+              const meta = chart.getDatasetMeta(i);
+
+              meta.data.forEach(function(bar, index) {
+                const data = dataset.data[index];
+        
+                ctx.fillText(data+'k', bar.x, bar.y);
+              });
+            });
+          }
+        },
+        plugins: {
+          legend:{
+            position:'bottom',
+            labels:{
+              usePointStyle: true, // create circular legends shape
+              // pointStyle:'rect', // create rectangular legend shape
+              pointStyle: 'rectRounded', // create rectangular rounded legend shape
+            }
+          }
         }
       }
 
   return (
-    <div>
+    <div style={{display:'flex', justifyContent:'center'}}>
+      <div style={{width:'500px'}}>
         <Bar
             height={400}
             data={data}
             options={options}
         />
+      </div>
     </div>
   )
 }

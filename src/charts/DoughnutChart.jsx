@@ -67,6 +67,7 @@ const DoughnutChart = () => {
             'purple',
             'gray'
           ],
+          
           borderWidth: 1,
           cutout: '85%', // set width of chart 
           // borderRadius: 10,
@@ -75,7 +76,8 @@ const DoughnutChart = () => {
           rotation:40, // rotate chart
           // offset: 100s
           // circumference: 1
-        }]
+        }],
+        text: "Total: 9000+",
       };
 
       const options = {
@@ -97,7 +99,24 @@ const DoughnutChart = () => {
             // titleColor: 'red',
           },
           legend: {
-            onClick: null // remove onClick event from legend,
+            
+            position: 'right',
+            align: 'center',
+            labels: {
+              generateLabels: (chart) => {
+                console.log(chart);
+                const datasets = chart.data.datasets;
+                console.log(datasets);
+                return datasets[0].data.map((data, i) => ({
+                  text: `${chart.data.labels[i]}         ${(data/Math.max(...datasets[0].data))*100}%`,
+                  fillStyle: datasets[0].backgroundColor[i],
+                  index: i
+                }))
+              },
+              usePointStyle: true, // create circular legends shape
+              // pointStyle:'rect', // create rectangular legends shape
+            },
+              onClick: null // remove onClick event from legend,
         },
         }
       }
@@ -106,40 +125,46 @@ const DoughnutChart = () => {
 		afterDraw: function (chart) {
       if (chart.config.options.elements.arc.roundedCornersFor !== undefined) {
         const { ctx, canvas } = chart;
-
             const width = chart.width;
             const height = chart.height;
             const chartHeight = chart.chartArea.height;
+            const chartWidth = chart.chartArea.width;
 
             // console.log(chart);
       
             ctx.restore();
-            const fontSize = 1.5;
-            ctx.font = fontSize + "em sans-serif";
+            
+            let fontSize = (chart.width / 150).toFixed(2);
+
+            ctx.font = (Math.min(fontSize, 1.5)) + "em sans-serif";
+
+
             ctx.textBaseline = "middle";
             ctx.fillStyle = chart.config.options.centerTextColor || "black";
       
             const text1 = "70%";
             const text2 = "Approved";
-            const textX = Math.round((width - ctx.measureText(text1).width) / 2);
-            const textX2 = Math.round((width - ctx.measureText(text2).width) / 2);
+            const textX = Math.round((chartWidth - ctx.measureText(text1).width) / 2);
+            const textX2 = Math.round((chartWidth - ctx.measureText(text2).width) / 2);
             const textY = (height - (chartHeight / 2));
 
             ctx.fillText(text1, textX, textY);
-            ctx.fillText(text2, textX2, textY+25);
+            ctx.fillText(text2, textX2, textY+20);
             ctx.save();
 			  }
 		  },
       }]
 
   return (
-    <div>
+    <div style={{display:'flex', justifyContent:'center'}}>
+      <div style={{width:'500px'}}>
         <Doughnut
             height={300}
             data={data}
             options={options}
             plugins={plugins} 
         />
+        </div>
     </div>
   )
 }

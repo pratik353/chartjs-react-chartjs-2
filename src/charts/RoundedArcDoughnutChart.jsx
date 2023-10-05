@@ -48,7 +48,7 @@ const RoundedDoughnutChart = () => {
         labels: ['Jan', 'Feb', 'Mar', 'Apr', 'June', 'July', 'Aug'],
         datasets: [{
           label: '# of Votes',
-          data: [4, 2, 3, 4, 5, 6, 5],
+          data: [4, 2, 3, 4, 5, 18, 1],
           backgroundColor: [
             'red',
             'yellow',
@@ -99,14 +99,15 @@ const RoundedDoughnutChart = () => {
           legend: {
             onClick: null // remove onClick event from legend,
         },
-        }
+        },
+        
       }
 
       const plugins= [{
         afterUpdate: function (chart) {
           if (chart.config.options.elements.arc.roundedCornersFor !== undefined) {
             const arcs = chart.getDatasetMeta(0).data;
-            console.log(chart);
+            // console.log(chart);
             arcs.forEach(function(arc) {
               arc.round = {
                 x: (chart.chartArea.left + chart.chartArea.right) / 2,
@@ -143,8 +144,9 @@ const RoundedDoughnutChart = () => {
             // console.log(chart);
       
             ctx.restore();
-            const fontSize = 1.5;
-            ctx.font = fontSize + "em sans-serif";
+            let fontSize = (chart.width / 150).toFixed(2);
+
+            ctx.font = (Math.min(fontSize, 1.5)) + "em sans-serif";
             ctx.textBaseline = "middle";
             ctx.fillStyle = chart.config.options.centerTextColor || "black";
       

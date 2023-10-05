@@ -43,9 +43,11 @@ const VerticalBarChart = () => {
           label: '# of Votes',
           data: [4, 3, 2, 4, 5],
           backgroundColor: [
+            '#9F97F7',
             '#1363AC',
             '#49C354',
-            '#9F97F7'
+            '#FFBE2B',
+            '#FF6327'
           ],
           borderWidth: 1
         }]
@@ -56,6 +58,7 @@ const VerticalBarChart = () => {
         maintainAspectRatio: false,
         scales: {
           x: {
+            title: { display: true, text: 'Department' }, // add title to axis
             grid: {
                 // drawBorder: false,
                 display: true,
@@ -63,10 +66,16 @@ const VerticalBarChart = () => {
                 lineWidth:0,
                 // drawOnChartArea:false
             },
-            display: false
+            border :{
+              display: false // remove axis border
+            },
+            ticks:{
+              display: false
+            }
+            // display: false
           },
           y: {
-
+            title: { display: true, text: 'no. of usage' }, // add title to axis
             // ticks styling
             ticks: {
               display: true,
@@ -107,12 +116,14 @@ const VerticalBarChart = () => {
       }
 
   return (
-    <div>
-        <Bar
-            height={400}
-            data={data}
-            options={options}
-        />
+    <div style={{display:'flex', justifyContent:'center'}}>
+      <div style={{width:'500px'}}>
+          <Bar
+              height={400}
+              data={data}
+              options={options}
+          />
+      </div>
     </div>
   )
 }
