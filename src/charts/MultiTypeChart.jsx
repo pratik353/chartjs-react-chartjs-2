@@ -53,7 +53,7 @@ const MultiTypeChart = () => {
             });
         }
 
-        fetchCoins();
+        // fetchCoins();
     },[]);
     
     const data = {
@@ -61,7 +61,7 @@ const MultiTypeChart = () => {
         datasets: [
             {
                 label: '# of Votes',
-                data: chart?.coins?.map( coin => coin.price),
+                data: labels.map(() =>Math.floor(Math.random() * 30000)),
                 backgroundColor: [
                   'rgba(255, 99, 132, 0.2)',
                   'rgba(255, 159, 64, 0.2)',

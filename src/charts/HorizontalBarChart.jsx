@@ -47,7 +47,8 @@ const BarChart = () => {
             '#49C354',
             '#9F97F7'
           ],
-          borderWidth: 1
+          borderWidth: 1,
+          barPercentage:0.3
         },
         {
           label: ['server-1'],
@@ -138,7 +139,7 @@ const BarChart = () => {
 
   return (
     <div style={{display:'flex', justifyContent:'center'}}>
-      <div style={{width:'500px'}}>
+      <div >
         <Bar
             height={400}
             data={data}

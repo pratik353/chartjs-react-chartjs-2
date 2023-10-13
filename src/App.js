@@ -31,8 +31,8 @@ function App() {
      <br/>
      <br/>
      <br/>
-     {/* <PieChart/> */}
-     {/* <MultiTypeChart/> */}
+     <PieChart/>
+     <MultiTypeChart/>
     </div>
   );
 }

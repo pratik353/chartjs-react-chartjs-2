@@ -34,14 +34,14 @@ const PieChart = () => {
             });
         }
 
-        fetchCoins();
+        // fetchCoins();
     },[]);
     
     const data = {
-        labels: chart?.coins?.map( coin => coin.name),
+        labels: ['1', '2', "4", '5', '67', '87'],
         datasets: [{
           label: '# of Votes',
-          data: chart?.coins?.map( coin => coin.price),
+          data: [1, 2, 4, 5, 67, 87].map(() =>Math.floor(Math.random() * 30000)),
           backgroundColor: [
             'rgba(255, 99, 132, 0.2)',
             'rgba(255, 159, 64, 0.2)',
